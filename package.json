@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "open-browser": "start http://localhost:3000",
+    "dev-browser": "yarn run open-browser && yarn run dev"
   },
   "dependencies": {
     "@types/node": "20.5.6",
