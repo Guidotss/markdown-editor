@@ -1,3 +1,4 @@
+import { Providers } from '@/providers';
 import './globals.css'
 import type { Metadata } from 'next'
 import { Roboto_Slab } from 'next/font/google'
@@ -20,7 +21,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${roboto.className} bg-black`}>{children}</body>
+      <body className={`${roboto.className} bg-black w-full h-screen`}>
+        <Providers>
+          {children}
+        </Providers>
+      </body>
     </html>
   )
 }

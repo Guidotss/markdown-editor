@@ -4,9 +4,9 @@ import { DeleteIcon, DocumentIcon, MenuIcon, SaveIcon } from "./icons";
 export const Navbar = () => {
   return (
     <div className="flex items-center">
-      <div className="flex justify-between items-center w-full bg-slate_gray">
+      <div className="flex justify-between items-center w-full bg-slate_gray ">
         <div className="w-full flex items-center">
-          <button className="bg-steel_blue w-16 p-5 flex justify-center items-center">
+          <button className="bg-steel_blue w-16 lg:p-5 flex justify-center items-center">
             <MenuIcon />
           </button>
           <div className="p-[9px] flex items-center w-full">
