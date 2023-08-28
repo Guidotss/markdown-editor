@@ -7,7 +7,7 @@ export const Editor = () => {
 
   return (
     <textarea
-      className="w-full h-full bg-black text-light_gray p-5 outline-none resize-none"
+      className="w-full h-screen bg-black text-light_gray p-5 outline-none resize-none"
       onChange={(e) => setNote?.(e.target.value)}
       value={currentNote}
     />

@@ -1,12 +1,22 @@
 "use client";
+import { UiContext } from "@/context/ui";
 import { DeleteIcon, DocumentIcon, MenuIcon, SaveIcon } from "./icons";
+import { useContext } from 'react';
+import "animate.css";
 
 export const Navbar = () => {
+
+  const { toggleSidebar, isSidebarOpen } = useContext(UiContext);
+  
+  const onToggleSidebar = () => {
+    toggleSidebar();
+  }
+
   return (
     <div className="flex items-center">
       <div className="flex justify-between items-center w-full bg-slate_gray ">
-        <div className="w-full flex items-center">
-          <button className="bg-steel_blue w-16 lg:p-5 flex justify-center items-center">
+        <div className={`w-full flex items-center ${isSidebarOpen && 'ml-36'}`}>
+          <button className={`bg-steel_blue w-16 lg:p-5 flex justify-center items-center ${isSidebarOpen && 'animate__animated animate__slideInLeft'}`} onClick={onToggleSidebar}>
             <MenuIcon />
           </button>
           <div className="p-[9px] flex items-center w-full">

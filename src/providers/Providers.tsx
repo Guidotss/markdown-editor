@@ -1,10 +1,17 @@
 "use client"
 import { NotesProvider } from "@/context/notes";
+import { UiProvider } from '@/context/ui'; 
 
 interface Props {
   children: React.ReactNode;
 }
 
 export const Providers = ({ children }: Props) => {
-  return <NotesProvider>{children}</NotesProvider>;
+  return (
+    <UiProvider>
+      <NotesProvider>
+        {children}
+      </NotesProvider>
+    </UiProvider>
+  )
 };
