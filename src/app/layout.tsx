@@ -21,7 +21,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${roboto.className} bg-black w-full h-screen`}>
+      <body className={`${roboto.className} bg-black w-full overflow-hidden`}>
         <Providers>
           {children}
         </Providers>

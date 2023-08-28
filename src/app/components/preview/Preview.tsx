@@ -7,7 +7,7 @@ import { options } from '@/constants/editorOptions';
 export const Preview = () => {
   const { currentNote } = useContext(NoteContext);
   return (
-    <div className="w-full h-full bg-black p-5 outline-none resize-none">
+    <div className="w-full h-full bg-black p-5 outline-none resize-none overflow-auto">
       <Markdown
         options={{
           overrides: options,

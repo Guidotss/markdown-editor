@@ -4,7 +4,7 @@ import { Navbar, Sidebar } from "./components/shared";
 
 export default function Home() {
   return (
-    <main className="">
+    <main>
       <header>
         <Navbar />
       </header>
@@ -14,13 +14,13 @@ export default function Home() {
           <header className="bg-dark_charcoal px-5 py-2">
             <h3 className="text-light_gray text-xl">Markdown</h3>
           </header>
-          <div className="h-screen">
+          <div>
             <Editor/>
           </div>
         </div>
         <div className="flex flex-col w-full">
           <header className="bg-dark_charcoal px-5 py-2">
-            <h3 className="text-light_gray">Preview</h3>
+            <h3 className="text-light_gray text-xl">Preview</h3>
           </header>
           <div className="h-screen">
             <Preview/>

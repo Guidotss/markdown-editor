@@ -17,7 +17,7 @@ export const Navbar = () => {
       <div className="flex justify-between items-center w-full bg-slate_gray ">
         <div className={`w-full flex items-center ${isSidebarOpen && 'ml-36'}`}>
           <button className={`bg-steel_blue w-16 lg:p-5 flex justify-center items-center ${isSidebarOpen && 'animate__animated animate__slideInLeft'}`} onClick={onToggleSidebar}>
-            <MenuIcon />
+            <MenuIcon/>
           </button>
           <div className="p-[9px] flex items-center w-full">
             <h1 className="text-white font-semibold tracking-widest">
@@ -30,7 +30,7 @@ export const Navbar = () => {
                 <h4 className="text-white font-extralight text-xs">
                   Document Name
                 </h4>
-                <h2 className="text-white font-light text-sm">Untitled.md</h2>
+                <h2 className="text-white font-light text-sm">Welcome.md</h2>
               </div>
             </div>
           </div>
