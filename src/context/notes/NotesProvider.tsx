@@ -13,7 +13,8 @@ export interface NotesState {
 
 const NOTES_INITIAL_STATE: NotesState = {
   notes: [],
-  currentNote: "",
+  currentNote: ""
+
 };
 
 export const NotesProvider = ({ children }: NotesProviderProps) => {
