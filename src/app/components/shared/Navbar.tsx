@@ -15,8 +15,8 @@ export const Navbar = () => {
   return (
     <div className="flex items-center">
       <div className="flex justify-between items-center w-full bg-slate_gray ">
-        <div className={`w-full flex items-center ${isSidebarOpen && 'ml-36'}`}>
-          <button className={`bg-steel_blue w-16 lg:p-5 flex justify-center items-center ${isSidebarOpen && 'animate__animated animate__slideInLeft'}`} onClick={onToggleSidebar}>
+        <div className={`w-full flex items-center ${isSidebarOpen && 'lg:ml-36 2xl:ml-44'}`}>
+          <button className={`bg-steel_blue w-16 lg:p-5 flex justify-center items-center ${isSidebarOpen && 'animate__animated animate__slideInLeft animate__faster'}`} onClick={onToggleSidebar}>
             <MenuIcon/>
           </button>
           <div className="p-[9px] flex items-center w-full">
