@@ -48,7 +48,7 @@ export class AuthService {
       if (!user) {
         throw new Error("Invalid credentials");
       }
-      const isValid = await this.comparePassword(password, user.password);
+      const isValid = await this.comparePassword(password, user.password!);
       if (!isValid) {
         throw new Error("Invalid credentials");
       }

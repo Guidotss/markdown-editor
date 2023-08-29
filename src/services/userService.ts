@@ -1,9 +1,10 @@
 import { PrismaClient } from "@prisma/client";
+import { User } from '@/interfaces';  
 
 export class UserService {
   private prisma = new PrismaClient();
 
-  async getUserByEmail(email: string): Promise<any> {
+  async getUserByEmail(email: string): Promise<User | null> {
     try {
       await this.prisma.$connect();
       const user = await this.prisma.user.findUnique({
@@ -19,7 +20,7 @@ export class UserService {
     }
   }
 
-  async getUserById(id: string): Promise<any> {
+  async getUserById(id: string): Promise<User> {
     try {
       await this.prisma.$connect();
       const user = await this.prisma.user.findUnique({
