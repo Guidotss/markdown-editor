@@ -2,7 +2,7 @@
 import { useContext } from "react";
 import Markdown from "markdown-to-jsx";
 import { NoteContext } from "@/context/notes";
-import { options } from '@/constants/editorOptions'; 
+import { options } from "@/constants/editorOptions";
 
 export const Preview = () => {
   const { currentNote } = useContext(NoteContext);

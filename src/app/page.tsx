@@ -9,13 +9,13 @@ export default function Home() {
         <Navbar />
       </header>
       <section className="flex w-full">
-        <Sidebar/>
+        <Sidebar />
         <div className="flex flex-col w-full border-r-[1px]">
           <header className="bg-dark_charcoal px-5 py-2">
             <h3 className="text-light_gray text-xl">Markdown</h3>
           </header>
           <div>
-            <Editor/>
+            <Editor />
           </div>
         </div>
         <div className="flex flex-col w-full">
@@ -23,10 +23,10 @@ export default function Home() {
             <h3 className="text-light_gray text-xl">Preview</h3>
           </header>
           <div className="h-screen">
-            <Preview/>
+            <Preview />
           </div>
         </div>
       </section>
     </main>
-  )
+  );
 }
