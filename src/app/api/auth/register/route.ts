@@ -1,4 +1,5 @@
 import { AuthService, UserService } from "@/services";
+import { signDocument } from "@/jwt";
 
 const authService = new AuthService(new UserService());
 
@@ -19,14 +20,17 @@ export async function POST(req: Request) {
       user.name,
       user.password
     );
-    
+
     if (!newUser) {
       return new Response(
         JSON.stringify({ ok: false, message: "Error registering user" }),
         { status: 400, headers: { "Content-Type": "application/json" } }
       );
     }
-    return new Response(JSON.stringify({ ok: true, newUser }), {
+
+    const token = signDocument(newUser.id, newUser.email, newUser.name);
+
+    return new Response(JSON.stringify({ ok: true, newUser, token }), {
       status: 201,
       headers: {
         "Content-Type": "application/json",
