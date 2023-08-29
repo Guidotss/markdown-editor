@@ -27,7 +27,7 @@ export async function POST(req: Request) {
       );
     }
     return new Response(JSON.stringify({ ok: true, newUser }), {
-      status: 200,
+      status: 201,
       headers: {
         "Content-Type": "application/json",
       },

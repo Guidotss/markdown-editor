@@ -17,11 +17,7 @@ export class AuthService {
     return await becrypt.compare(password, hash);
   }
 
-  async register(
-    email: string,
-    name: string,
-    password: string
-  ): Promise<any> {
+  async register(email: string, name: string, password: string): Promise<any> {
     try {
       const user = await this.userService.getUserByEmail(email);
       if (user) {
@@ -44,6 +40,25 @@ export class AuthService {
       return newUser;
     } catch (error) {
       throw new Error(`Error registering user : ${error}`);
+    }
+  }
+  async login(email: string, password: string): Promise<any> {
+    try {
+      const user = await this.userService.getUserByEmail(email);
+      if (!user) {
+        throw new Error("Invalid credentials");
+      }
+      const isValid = await this.comparePassword(password, user.password);
+      if (!isValid) {
+        throw new Error("Invalid credentials");
+      }
+      return {
+        id: user.id,
+        email: user.email,
+        name: user.name,
+      };
+    } catch (error) {
+      throw new Error(`logging in user : ${error}`);
     }
   }
 }
