@@ -66,4 +66,4 @@ export const options = {
       className: "list-disc list-inside text-light_gray text-sm mb-5",
     },
   },
-} as const; 
+} as const;

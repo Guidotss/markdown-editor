@@ -14,18 +14,19 @@ export async function POST(req: Request) {
   }
 
   try {
-    const registered = await authService.register(
+    const newUser = await authService.register(
       user.email,
       user.name,
       user.password
     );
-    if (!registered) {
+    
+    if (!newUser) {
       return new Response(
         JSON.stringify({ ok: false, message: "Error registering user" }),
         { status: 400, headers: { "Content-Type": "application/json" } }
       );
     }
-    return new Response(JSON.stringify({ ok: true }), {
+    return new Response(JSON.stringify({ ok: true, newUser }), {
       status: 200,
       headers: {
         "Content-Type": "application/json",

@@ -21,29 +21,29 @@ export class AuthService {
     email: string,
     name: string,
     password: string
-  ): Promise<boolean> {
+  ): Promise<any> {
     try {
       const user = await this.userService.getUserByEmail(email);
       if (user) {
         throw new Error("User already exists");
       }
       const hash = await this.hasPassword(password);
-      await this.prisma.user.create({
+      const newUser = await this.prisma.user.create({
         data: {
           email,
           password: hash,
           name,
         },
         select: {
-            id: true,
-            email: true,
-            name: true,
-        }
+          id: true,
+          email: true,
+          name: true,
+        },
       });
       await this.prisma.$disconnect();
-      return true;
+      return newUser;
     } catch (error) {
-      throw new Error("Error registering user");
+      throw new Error(`Error registering user : ${error}`);
     }
   }
 }

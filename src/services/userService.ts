@@ -11,9 +11,7 @@ export class UserService {
           email,
         },
       });
-      if (!user) {
-        throw new Error("User not found");
-      }
+      await this.prisma.$disconnect();
       return user; 
     } catch (error) {
       console.log(error);
