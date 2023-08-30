@@ -26,7 +26,7 @@ export async function GET(req: Request) {
       );
     }
 
-    const newToken = signDocument(user.id, user.email, user.name);
+    const newToken = signDocument(user.id!, user.email, user.name);
 
     return new Response(JSON.stringify({ ok: true, user, token: newToken }), {
       status: 200,

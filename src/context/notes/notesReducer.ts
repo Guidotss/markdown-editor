@@ -12,5 +12,7 @@ export const notesReducer = (
         ...state,
         currentNote: action.payload,
       };
+    default:
+      return state;
   }
 };

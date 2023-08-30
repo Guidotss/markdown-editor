@@ -1,6 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import becrypt from "bcrypt";
 import { UserService } from "./userService";
+import { User } from "@/interfaces";
 
 export class AuthService {
   prisma = new PrismaClient();
@@ -17,7 +18,7 @@ export class AuthService {
     return await becrypt.compare(password, hash);
   }
 
-  async register(email: string, name: string, password: string): Promise<any> {
+  async register(email: string, name: string, password: string): Promise<User> {
     try {
       const user = await this.userService.getUserByEmail(email);
       if (user) {
@@ -42,7 +43,7 @@ export class AuthService {
       throw new Error(`Error registering user : ${error}`);
     }
   }
-  async login(email: string, password: string): Promise<any> {
+  async login(email: string, password: string): Promise<User> {
     try {
       const user = await this.userService.getUserByEmail(email);
       if (!user) {
