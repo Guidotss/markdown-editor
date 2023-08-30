@@ -1,7 +1,8 @@
-import { Providers } from "@/providers";
-import "./globals.css";
 import type { Metadata } from "next";
 import { Roboto_Slab } from "next/font/google";
+import { Toaster } from 'react-hot-toast';
+import { Providers } from "@/providers";
+import "./globals.css";
 
 const roboto = Roboto_Slab({ subsets: ["latin"] });
 
@@ -24,6 +25,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${roboto.className} bg-black w-full overflow-hidden`}>
+        <Toaster
+          reverseOrder={false}
+          position="top-center"
+        />
         <Providers>{children}</Providers>
       </body>
     </html>

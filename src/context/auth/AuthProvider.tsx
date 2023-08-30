@@ -1,8 +1,9 @@
 "use client";
 import { useReducer } from "react";
 import Cookies from "js-cookie";
-import { AuthContext, authReducer } from ".";
 import { AuthUserResponse, User } from "@/interfaces";
+import { AuthContext, authReducer } from ".";
+import { toast } from 'react-hot-toast';
 
 interface AuthProviderProps {
   children: React.ReactNode;
@@ -45,6 +46,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         });
         return true;
       }
+      console.log(response.status); 
       return false;
     } catch (error) {
       console.log(error);

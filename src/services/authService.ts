@@ -43,16 +43,21 @@ export class AuthService {
       throw new Error(`Error registering user : ${error}`);
     }
   }
-  async login(email: string, password: string): Promise<User> {
+  async login(email: string, password: string): Promise<User | null> {
+    const user = await this.userService.getUserByEmail(email);
+    if (!user) {
+      return null;
+    }
     try {
-      const user = await this.userService.getUserByEmail(email);
-      if (!user) {
-        throw new Error("Invalid credentials");
+      const isPasswordValid = await this.comparePassword(
+        password,
+        user.password!
+      );
+
+      if (!isPasswordValid) {
+        return null;
       }
-      const isValid = await this.comparePassword(password, user.password!);
-      if (!isValid) {
-        throw new Error("Invalid credentials");
-      }
+
       return {
         id: user.id,
         email: user.email,
