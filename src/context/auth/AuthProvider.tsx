@@ -21,7 +21,8 @@ const AUTH_INITIAL_STATE: AuthState = {
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [state, dispatch] = useReducer(authReducer, AUTH_INITIAL_STATE);
 
-  const login = async (user: User) => {
+  const login = async (email: string, password: string) => {
+    const user = { email, password };
     try {
       const response = await fetch("/api/auth/login", {
         method: "POST",
@@ -31,6 +32,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         body: JSON.stringify(user),
       });
       const data: AuthUserResponse = await response.json();
+      console.log(data); 
 
       if (data.ok) {
         Cookies.set("token", data.token);
