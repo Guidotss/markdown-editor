@@ -17,7 +17,7 @@ export const RegisterForm = () => {
   return (
     <form className="flex flex-col gap-10 2xl:w-[30vw]">
       <div className="flex gap-10">
-        <input  
+        <input
           className="bg-black text-white font-light 2xl:w-[400px] lg:w-[250px] 2xl:px-5 py-3 lg:px-3 border-b-[1px] focus:outline-none focus:border-b-[1px] focus:border-coral transition-colors duration-300 ease-in-out"
           placeholder="Guido Olguin"
           type="text"

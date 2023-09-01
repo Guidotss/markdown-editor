@@ -1,4 +1,4 @@
-"use client";
+ "use client";
 import { useReducer } from "react";
 import Cookies from "js-cookie";
 import { AuthUserResponse, User } from "@/interfaces";
@@ -33,7 +33,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         body: JSON.stringify(user),
       });
       const data: AuthUserResponse = await response.json();
-      console.log(data); 
 
       if (data.ok) {
         Cookies.set("token", data.token);
@@ -46,7 +45,16 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         });
         return true;
       }
-      console.log(response.status); 
+      toast.error(data.message || "Error al iniciar sesión",{
+        duration: 4000,
+        position: 'top-right',
+        icon: '❌',
+        style: {
+          borderRadius: '10px',
+          background: '#333',
+          color: '#fff',
+        }
+      })
       return false;
     } catch (error) {
       console.log(error);

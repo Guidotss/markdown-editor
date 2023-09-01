@@ -19,6 +19,9 @@ export const LoginForm = () => {
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); 
+    if(email.trim() === '' || password.trim() === ''){ 
+      return;
+    }
     try{ 
       const ok = await login(email, password); 
       if(ok){ 

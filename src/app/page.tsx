@@ -14,7 +14,7 @@ export default function Home() {
           <header className="bg-dark_charcoal px-5 py-2">
             <h3 className="text-light_gray text-xl">Markdown</h3>
           </header>
-          <div>
+          <div className="min-h-[81vh]">
             <Editor />
           </div>
         </div>
@@ -22,7 +22,7 @@ export default function Home() {
           <header className="bg-dark_charcoal px-5 py-2">
             <h3 className="text-light_gray text-xl">Preview</h3>
           </header>
-          <div className="h-screen">
+          <div className="min-h-[81vh]">
             <Preview />
           </div>
         </div>
