@@ -32,7 +32,7 @@ export const LoginForm = () => {
   return (
     <form className="flex flex-col gap-10" onSubmit={handleLogin}>
       <input
-        className="bg-black text-white font-light 2xl:w-[400px] px-5 py-3 border-b-[1px] focus:outline-none focus:border-b-[1px] focus:border-coral transition-colors duration-300 ease-in-out"
+        className="bg-black text-white font-light 2xl:w-[400px] lg:w-[350px] px-5 py-3 border-b-[1px] focus:outline-none focus:border-b-[1px] focus:border-coral transition-colors duration-300 ease-in-out"
         placeholder="example@hotmail.com"
         type="email"
         name="email"
@@ -52,7 +52,7 @@ export const LoginForm = () => {
           setForm((prev) => ({ ...prev, password: target.value }))
         }
       />
-      <button className="px-5 py-3 font-semibold text-xl rounded-md bg-coral hover:bg-apricot transition-colors duration-300 ease-in-out">
+      <button className="2xl:px-5 2xl:py-3 lg:px-3 lg:py-2 font-semibold text-xl rounded-md bg-coral hover:bg-apricot transition-colors duration-300 ease-in-out">
         Login
       </button>
       <div className="w-full flex justify-end">

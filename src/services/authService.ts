@@ -21,6 +21,7 @@ export class AuthService {
   async register(email: string, name: string, password: string): Promise<User> {
     try {
       const user = await this.userService.getUserByEmail(email);
+      
       if (user) {
         throw new Error("User already exists");
       }

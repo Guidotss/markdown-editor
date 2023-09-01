@@ -15,10 +15,10 @@ export const RegisterForm = () => {
     name: "",
   });
   return (
-    <form className="flex flex-col gap-10 2xl:w-[30vw] ">
+    <form className="flex flex-col gap-10 2xl:w-[30vw]">
       <div className="flex gap-10">
-        <input
-          className="bg-black text-white font-light 2xl:w-[400px] px-5 py-3 border-b-[1px] focus:outline-none focus:border-b-[1px] focus:border-coral transition-colors duration-300 ease-in-out"
+        <input  
+          className="bg-black text-white font-light 2xl:w-[400px] lg:w-[250px] 2xl:px-5 py-3 lg:px-3 border-b-[1px] focus:outline-none focus:border-b-[1px] focus:border-coral transition-colors duration-300 ease-in-out"
           placeholder="Guido Olguin"
           type="text"
           name="name"
@@ -28,7 +28,7 @@ export const RegisterForm = () => {
           }
         />
         <input
-          className="bg-black text-white font-light 2xl:w-[400px] px-5 py-3 border-b-[1px] focus:outline-none focus:border-b-[1px] focus:border-coral transition-colors duration-300 ease-in-out"
+          className="bg-black text-white font-light 2xl:w-[400px] lg:w-[250px] 2xl:px-5 py-3 lg:px-3 border-b-[1px] focus:outline-none focus:border-b-[1px] focus:border-coral transition-colors duration-300 ease-in-out"
           placeholder="example@hotmail.com"
           type="email"
           name="email"
@@ -40,7 +40,7 @@ export const RegisterForm = () => {
       </div>
       <input
         className="bg-black text-white font-light px-5 py-3 border-b-[1px] focus:outline-none focus:border-b-[1px] focus:border-coral transition-colors duration-300 ease-in-out"
-        placeholder="**********"
+        placeholder="******************"
         type="password"
         autoComplete="off"
         name="password"
@@ -49,7 +49,7 @@ export const RegisterForm = () => {
           setForm((prev) => ({ ...prev, password: target.value }))
         }
       />
-      <button className="px-5 py-3 font-semibold text-xl rounded-md bg-coral hover:bg-apricot transition-colors duration-300 ease-in-out">
+      <button className="2xl:px-5 2xl:py-3 lg:py-2 font-semibold text-xl rounded-md bg-coral hover:bg-apricot transition-colors duration-300 ease-in-out">
         Register
       </button>
       <div className="w-full flex justify-end">
