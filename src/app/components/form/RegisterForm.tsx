@@ -1,6 +1,8 @@
 "use client";
+import { useContext, useState } from "react";
+import { useRouter } from 'next/navigation'; 
 import Link from "next/link";
-import { useState } from "react";
+import { AuthContext } from "@/context/auth";
 
 type RegisterForm = {
   email: string;
@@ -14,8 +16,28 @@ export const RegisterForm = () => {
     password: "",
     name: "",
   });
+  const router = useRouter(); 
+  const { register } = useContext(AuthContext); 
+
+  const handleRegister = async (e:React.FormEvent) => {
+    e.preventDefault();
+    if(name.trim() == '' || email.trim() == '' || password.trim() == '') {
+      return;
+    }
+    try{
+      const ok = await register(name, email, password);
+      if(ok){
+        router.push('/');
+      }
+
+    }catch(error){
+      console.log(error);
+    }
+  }
+
+
   return (
-    <form className="flex flex-col gap-10 2xl:w-[30vw]">
+    <form className="flex flex-col gap-10 2xl:w-[30vw]" onSubmit={handleRegister}>
       <div className="flex gap-10">
         <input
           className="bg-black text-white font-light 2xl:w-[400px] lg:w-[250px] 2xl:px-5 py-3 lg:px-3 border-b-[1px] focus:outline-none focus:border-b-[1px] focus:border-coral transition-colors duration-300 ease-in-out"

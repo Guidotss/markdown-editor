@@ -28,7 +28,7 @@ export async function POST(req: Request) {
       );
     }
 
-    const token = signDocument(newUser.id, newUser.email, newUser.name);
+    const token = signDocument(newUser.id!, newUser.email, newUser.name);
 
     return new Response(JSON.stringify({ ok: true, newUser, token }), {
       status: 201,
