@@ -23,6 +23,7 @@ export const NotesProvider = ({ children }: NotesProviderProps) => {
   const setNote = (note: string) =>
     dispatch({ type: "[NOTE] - set_current_note", payload: note });
 
+
   return (
     <NoteContext.Provider
       value={{
