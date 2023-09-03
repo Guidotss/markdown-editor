@@ -1,9 +1,9 @@
 "use client";
-import { useReducer } from "react";
+import { useReducer, useEffect } from "react";
 import Cookies from "js-cookie";
+import { toast } from "react-hot-toast";
 import { AuthUserResponse, User } from "@/interfaces";
 import { AuthContext, authReducer } from ".";
-import { toast } from "react-hot-toast";
 
 interface AuthProviderProps {
   children: React.ReactNode;
@@ -11,16 +11,18 @@ interface AuthProviderProps {
 
 export interface AuthState {
   user: User | null;
-  token: string | null;
 }
 
 const AUTH_INITIAL_STATE: AuthState = {
   user: null,
-  token: null,
 };
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [state, dispatch] = useReducer(authReducer, AUTH_INITIAL_STATE);
+
+  useEffect(() => {
+    revalidate();
+  }, []);
 
   const login = async (email: string, password: string): Promise<boolean> => {
     const user = { email, password };
@@ -38,13 +40,15 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         Cookies.set("token", data.token);
         dispatch({
           type: "[AUTH] - login",
-          payload: {
-            user: data.user,
-            token: data.token,
-          },
+          payload: data.user,
         });
         return true;
       }
+
+      dispatch({
+        type: "[AUTH] - logout",
+      });
+
       toast.error(data.message || "Error al iniciar sesión", {
         duration: 4000,
         position: "top-right",
@@ -80,7 +84,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         headers: {
           "Content-Type": "application/json",
         },
-        body:JSON.stringify(user)
+        body: JSON.stringify(user),
       });
       const data: AuthUserResponse = await response.json();
 
@@ -88,13 +92,15 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         Cookies.set("token", data.token);
         dispatch({
           type: "[AUTH] - login",
-          payload: {
-            user: data.user,
-            token: data.token,
-          },
+          payload: data.user,
         });
         return true;
       }
+
+      dispatch({
+        type: "[AUTH] - logout",
+      });
+
       toast.error(data.message || "Error al iniciar sesión", {
         duration: 4000,
         position: "top-right",
@@ -119,6 +125,39 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         },
       });
       return false;
+    }
+  };
+
+  const revalidate = async (): Promise<void> => {
+    const token = Cookies.get("token");
+    if (!token) {
+      dispatch({
+        type: "[AUTH] - logout",
+      });
+      return;
+    }
+    try {
+      const response = await fetch("/api/auth/renew-token", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const data: AuthUserResponse = await response.json();
+      if (data.ok) {
+        Cookies.set("token", data.token);
+        dispatch({
+          type: "[AUTH] - login",
+          payload: data.user,
+        });
+      } else {
+        dispatch({
+          type: "[AUTH] - logout",
+        });
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 

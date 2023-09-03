@@ -12,7 +12,7 @@ export const signDocument = (id: string, email: string, name: string) => {
 
 export const verifyToken = (token: string) => {
   if (!process.env.JSON_SECRET) throw new Error("No secret found");
-  if (!token || token.length) throw new Error("Invalid token");
+  if (!token) throw new Error("No token provided");
 
   return new Promise((resolve, reject) => {
     try {
