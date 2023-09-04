@@ -1,5 +1,9 @@
+import { NoteService } from "@/services";
+
+const noteService = new NoteService();
+
 export async function POST(req: Request) {
-  const { userId,...note } = await req.json();
+  const { userId, ...note } = await req.json();
   if (!note) {
     return new Response(
       JSON.stringify({ ok: false, message: "Note is requiered" }),
@@ -8,6 +12,16 @@ export async function POST(req: Request) {
   }
 
   try {
+    const newNote = await noteService.create(note, userId);
+    if (!newNote) {
+      return new Response(
+        JSON.stringify({
+          ok: false,
+          message: "Note not created",
+        }),
+        { status: 400, headers: { "Content-Type": "application/json" } }
+      );
+    }
   } catch (error) {
     console.log(error);
     return new Response(
