@@ -1,8 +1,10 @@
 "use client";
 import { useReducer } from "react";
+import Cookies from "js-cookie";
 import { v4 as uuid } from "uuid";
 import { NoteContext, notesReducer } from ".";
 import { Note } from "@/interfaces";
+import { toast } from "react-hot-toast";
 
 interface NotesProviderProps {
   children: React.ReactNode;
@@ -40,10 +42,23 @@ export const NotesProvider = ({ children }: NotesProviderProps) => {
     dispatch({ type: "[NOTE] - type_note", payload: content });
 
   const createNote = () => {
+    const token = Cookies.get("token");
+    if (!token) {
+      toast.error("You must be logged in to create a note", {
+        duration: 3000,
+        position: "top-center",
+        style: {
+          background: "#333",
+          color: "#fff",
+        },
+        icon: "🔒",
+      });
+      return;
+    }
     const newNote: Note = {
       id: uuid(),
-      title: "",
-      content: "",
+      title: "untitled.md",
+      content: "# type markdown here",
     };
     dispatch({ type: "[NOTE] - create_note", payload: newNote });
   };
@@ -55,6 +70,7 @@ export const NotesProvider = ({ children }: NotesProviderProps) => {
 
         setCurrentNote,
         typeNote,
+        createNote,
       }}
     >
       {children}

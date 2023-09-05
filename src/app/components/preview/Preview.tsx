@@ -21,23 +21,23 @@ const options = {
   },
   h4: {
     props: {
-      className: "text-xl text-white mb-5",
+      className: "text-xl text-white" 
     },
   },
   h5: {
     props: {
-      className: "text-lg text-white mb-5",
+      className: "text-lg text-white",
     },
   },
   h6: {
     props: {
-      className: "text-md text-coral mb-5",
+      className: "text-md text-coral ",
     },
   },
 
   code: {
     props: {
-      className: "bg-slate_gray text-sm text-white p-1 rounded-md mb-5",
+      className: "bg-slate_gray text-sm text-white p-1 rounded-md",
     },
   },
   blockquote: {

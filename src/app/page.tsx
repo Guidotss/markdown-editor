@@ -4,7 +4,7 @@ import { Navbar, Sidebar } from "./components/shared";
 
 export default function Home() {
   return (
-    <main>
+    <main className="overflow-hidden">
       <header>
         <Navbar />
       </header>

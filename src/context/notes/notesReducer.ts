@@ -21,6 +21,7 @@ export const notesReducer = (
       return {
         ...state,
         notes: [...state.notes, action.payload],
+        currentNote: action.payload,
       };
     
     case "[NOTE] - type_note":

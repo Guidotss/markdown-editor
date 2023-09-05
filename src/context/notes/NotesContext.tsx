@@ -8,6 +8,7 @@ interface NoteContextProps{
     currentNote: Note;
     setCurrentNote: (id: string) => void;
     typeNote: (content: string) => void; 
+    createNote: () => void; 
 }
 
 

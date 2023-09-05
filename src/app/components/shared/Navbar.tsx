@@ -34,22 +34,24 @@ export const Navbar = () => {
             <h1 className="text-white font-semibold tracking-widest">
               Markdown
             </h1>
-            {notes.map((note) => (
-              <div key={note.id} className="flex items-center">
-                <div className="h-10 w-[1px] bg-graphite_gray ml-5" />
-                <div className="flex items-center gap-5 ml-4 cursor-pointer">
-                  <DocumentIcon />
-                  <div className="flex flex-col">
-                    <h4 className="text-white font-extralight text-xs">
-                      Document Name
-                    </h4>
-                    <h2 className="text-white font-light text-sm">
-                      {note.title}
-                    </h2>
+            <div className={`overflow-auto flex scroll ${isSidebarOpen ? '2xl:w-[70vw]' : '2xl:w-[80vw]'}`}> 
+              {notes.map((note) => (
+                <div key={note.id} className="flex items-center">
+                  <div className={`h-10 w-[1px] bg-graphite_gray ${!isSidebarOpen ? 'ml-4' : ''}`} />
+                  <div className={`flex items-center gap-5  ${isSidebarOpen ? "ml-2" : "ml-4"} cursor-pointer`}>
+                    <DocumentIcon />
+                    <div className="flex flex-col">
+                      <h4 className="text-white font-extralight text-xs">
+                        Document Name
+                      </h4>
+                      <h2 className="text-white font-light text-sm">
+                        {note.title}
+                      </h2>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
         <div className="flex items-center gap-5">
