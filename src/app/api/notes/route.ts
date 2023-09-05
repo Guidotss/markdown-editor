@@ -1,32 +1,22 @@
+import { NextRequest } from "next/server";
 import { NoteService } from "@/services";
 
 const noteService = new NoteService();
 
-export async function POST(req: Request) {
-  const { userId, ...note } = await req.json();
-  if (!note) {
+export async function GET(req: NextRequest) {
+  const userId = req.nextUrl.searchParams.get("id");
+
+  if (!userId) {
     return new Response(
-      JSON.stringify({ ok: false, message: "Note is requiered" }),
+      JSON.stringify({ ok: false, message: "User id is required" }),
       { status: 400, headers: { "Content-Type": "application/json" } }
     );
   }
 
-  try {
-    const newNote = await noteService.create(note, userId);
-    if (!newNote) {
-      return new Response(
-        JSON.stringify({
-          ok: false,
-          message: "Note not created",
-        }),
-        { status: 400, headers: { "Content-Type": "application/json" } }
-      );
-    }
-  } catch (error) {
-    console.log(error);
-    return new Response(
-      JSON.stringify({ ok: false, message: "Internal server error" }),
-      { status: 500, headers: { "Content-Type": "application/json" } }
-    );
-  }
+  const userNotes = await noteService.getAllNotes(userId);
+
+  return new Response(JSON.stringify({ ok: true, userNotes }), {
+    status: 200,
+    headers: { "Content-Type": "application/json" },
+  });
 }

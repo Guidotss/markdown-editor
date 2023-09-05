@@ -7,16 +7,16 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL_LOCAL")
+  url      = env("DATABASE_URL")
 }
 
-model Note {
+model note {
   id        String   @id @default(uuid())
   title     String
   content   String
-  createdAt DateTime @default(now())
-  userId    String
-  user      user     @relation(fields: [userId], references: [id])
+  createdat DateTime @default(now())
+  userid    String
+  user      user     @relation(fields: [userid], references: [id])
 }
 
 model user {
@@ -24,5 +24,5 @@ model user {
   name     String
   password String
   email    String @unique
-  notes    Note[]
+  notes    note[]
 }

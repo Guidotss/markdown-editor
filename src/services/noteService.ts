@@ -4,21 +4,37 @@ import { UserService } from ".";
 
 export class NoteService {
   private readonly prisma = new PrismaClient();
-  constructor(private readonly userService: UserService = new UserService()) {}
+
+  async getAllNotes(userId: string) {
+    try {
+      await this.prisma.$connect();
+      const notes = await this.prisma.note.findMany({
+        where: {
+          user: {
+            id: userId,
+          },
+        },
+      });
+      await this.prisma.$disconnect();
+      return notes;
+    } catch (error) {
+      console.log(error);
+      throw new Error("Internal server error");
+    }
+  }
 
   async create(note: Note, userId: string) {
     try {
       await this.prisma.$connect();
-      const user = await this.userService.getUserById(userId);
 
       const newNote = await this.prisma.note.create({
         data: {
           title: note.title,
           content: note.content,
-          createdAt: new Date(),
+          createdat: new Date(),
           user: {
             connect: {
-              id: user.id,
+              id: userId,
             },
           },
         },
