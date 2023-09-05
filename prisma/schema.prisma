@@ -7,12 +7,12 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url      = env("DATABASE_URL_LOCAL")
 }
 
 model Note {
   id        String   @id @default(uuid())
-  name      String
+  title     String
   content   String
   createdAt DateTime @default(now())
   userId    String
