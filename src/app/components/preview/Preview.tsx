@@ -87,7 +87,7 @@ export const Preview = () => {
           overrides: options,
         }}
       >
-        {currentNote}
+        {currentNote?.content}
       </Markdown>
     </div>
   );

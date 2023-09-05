@@ -14,7 +14,7 @@ export default function Home() {
           <header className="bg-dark_charcoal px-5 py-2">
             <h3 className="text-light_gray text-xl">Markdown</h3>
           </header>
-          <div className="min-h-[81vh]">
+          <div className="lg:min-h-[81vh] 2xl:min-h-[89vh]">
             <Editor />
           </div>
         </div>
@@ -22,7 +22,7 @@ export default function Home() {
           <header className="bg-dark_charcoal px-5 py-2">
             <h3 className="text-light_gray text-xl">Preview</h3>
           </header>
-          <div className="lg:min-h-[81vh] 2xl:min-h-[89vh]">
+          <div className="lg:min-h-[81vh] 2xl:max-h-[89vh] overflow-auto">
             <Preview />
           </div>
         </div>

@@ -1,11 +1,13 @@
 "use client"
+import { Note } from '@/interfaces';
 import { createContext } from 'react';
 
 
 interface NoteContextProps{ 
-    notes: string[]; 
-    currentNote: string;
-    setNote: (note: string) => void;
+    notes: Note[]; 
+    currentNote: Note;
+    setCurrentNote: (id: string) => void;
+    typeNote: (content: string) => void; 
 }
 
 

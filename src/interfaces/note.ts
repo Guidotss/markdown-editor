@@ -4,7 +4,7 @@ export interface Note {
   id: string;
   title: string;
   content: string;
-  createdAt: Date;
-  userId: string;
-  user: User;
+  createdAt?: Date;
+  userId?: string;
+  user?: User;
 }
