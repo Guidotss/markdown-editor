@@ -24,7 +24,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${roboto.className} bg-black w-full`}>
+      <body className={`${roboto.className} bg-black w-full overflow-hidden`}>
         <Toaster
           reverseOrder={false}
           position="top-center"

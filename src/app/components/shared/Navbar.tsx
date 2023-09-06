@@ -6,11 +6,15 @@ import { DeleteIcon, DocumentIcon, MenuIcon, SaveIcon } from "./icons";
 import "animate.css";
 
 export const Navbar = () => {
-  const { toggleSidebar, isSidebarOpen } = useContext(UiContext);
+  const { toggleSidebar, isSidebarOpen, openSaveModal } = useContext(UiContext);
   const { notes } = useContext(NoteContext);
 
   const onToggleSidebar = () => {
     toggleSidebar();
+  };
+
+  const handleOpenSaveModal = () => {
+    openSaveModal();
   };
 
   return (
@@ -34,11 +38,23 @@ export const Navbar = () => {
             <h1 className="text-white font-semibold tracking-widest">
               Markdown
             </h1>
-            <div className={`overflow-auto flex scroll ${isSidebarOpen ? '2xl:w-[70vw]' : '2xl:w-[80vw]'}`}> 
+            <div
+              className={`overflow-auto flex scroll ${
+                isSidebarOpen ? "2xl:w-[70vw]" : "2xl:w-[80vw]"
+              }`}
+            >
               {notes.map((note) => (
                 <div key={note.id} className="flex items-center">
-                  <div className={`h-10 w-[1px] bg-graphite_gray ${!isSidebarOpen ? 'ml-4' : ''}`} />
-                  <div className={`flex items-center gap-5  ${isSidebarOpen ? "ml-2" : "ml-4"} cursor-pointer`}>
+                  <div
+                    className={`h-10 w-[1px] bg-graphite_gray ${
+                      !isSidebarOpen ? "ml-4" : ""
+                    }`}
+                  />
+                  <div
+                    className={`flex items-center gap-5  ${
+                      isSidebarOpen ? "ml-2" : "ml-4"
+                    } cursor-pointer`}
+                  >
                     <DocumentIcon />
                     <div className="flex flex-col">
                       <h4 className="text-white font-extralight text-xs">
@@ -58,7 +74,10 @@ export const Navbar = () => {
           <button>
             <DeleteIcon />
           </button>
-          <button className="bg-coral w-[130px] p-3 flex items-center justify-center gap-2 mr-5 rounded-md hover:bg-apricot transition-colors duration-300 ease-in-out">
+          <button
+            className="bg-coral w-[130px] p-3 flex items-center justify-center gap-2 mr-5 rounded-md hover:bg-apricot transition-colors duration-300 ease-in-out"
+            onClick={handleOpenSaveModal}
+          >
             <figure>
               <SaveIcon />
             </figure>
