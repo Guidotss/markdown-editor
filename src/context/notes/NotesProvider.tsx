@@ -1,9 +1,9 @@
 "use client";
-import { useReducer } from "react";
+import { useReducer, useEffect } from "react";
 import Cookies from "js-cookie";
 import { v4 as uuid } from "uuid";
 import { NoteContext, notesReducer } from ".";
-import { Note } from "@/interfaces";
+import { Note, NoteResponse } from "@/interfaces";
 import { toast } from "react-hot-toast";
 
 interface NotesProviderProps {
@@ -35,6 +35,10 @@ const NOTES_INITIAL_STATE: NotesState = {
 export const NotesProvider = ({ children }: NotesProviderProps) => {
   const [state, dispatch] = useReducer(notesReducer, NOTES_INITIAL_STATE);
 
+  useEffect(() => {
+    loadNotes();
+  }, []);
+
   const setCurrentNote = (id: string) =>
     dispatch({ type: "[NOTE] - set_current_note", payload: id });
 
@@ -63,6 +67,171 @@ export const NotesProvider = ({ children }: NotesProviderProps) => {
     dispatch({ type: "[NOTE] - create_note", payload: newNote });
   };
 
+  const saveNote = async (note: Note) => {
+    const token = Cookies.get("token");
+    if (!token) {
+      toast.error("You must be logged in to save a note", {
+        duration: 3000,
+        position: "top-center",
+        style: {
+          background: "#333",
+          color: "#fff",
+        },
+        icon: "🔒",
+      });
+      return;
+    }
+
+    try {
+      const response = await fetch("api/notes/create", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(note),
+      });
+
+      const data: NoteResponse = await response.json();
+
+      if (data.ok) {
+        toast.success("Note saved successfully", {
+          duration: 3000,
+          position: "top-center",
+          style: {
+            background: "#333",
+            color: "#fff",
+          },
+          icon: "✅",
+        });
+        dispatch({ type: "[NOTE] - save_note", payload: note });
+      } else {
+        toast.error("Error saving note", {
+          duration: 3000,
+          position: "top-center",
+          style: {
+            background: "#333",
+            color: "#fff",
+          },
+          icon: "❌",
+        });
+        return;
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Error saving note", {
+        duration: 3000,
+        position: "top-center",
+        style: {
+          background: "#333",
+          color: "#fff",
+        },
+        icon: "❌",
+      });
+    }
+  };
+
+  const remove = async (id: string) => {
+    try {
+      const response = await fetch(`api/notes/delete/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      const data: NoteResponse = await response.json();
+
+      if (data.ok) {
+        toast.success("Note deleted successfully", {
+          duration: 3000,
+          position: "top-center",
+          style: {
+            background: "#333",
+            color: "#fff",
+          },
+          icon: "✅",
+        });
+        dispatch({ type: "[NOTE] - delete_note", payload: id });
+      } else {
+        toast.error("Error deleting note", {
+          duration: 3000,
+          position: "top-center",
+          style: {
+            background: "#333",
+            color: "#fff",
+          },
+          icon: "❌",
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Error deleting note", {
+        duration: 3000,
+        position: "top-center",
+        style: {
+          background: "#333",
+          color: "#fff",
+        },
+        icon: "❌",
+      });
+    }
+  };
+
+  const loadNotes = async () => {
+    const token = Cookies.get("token");
+    if (!token) {
+      toast.error("You must be logged in to save a note", {
+        duration: 3000,
+        position: "top-center",
+        style: {
+          background: "#333",
+          color: "#fff",
+        },
+        icon: "🔒",
+      });
+      return;
+    }
+
+    try {
+      const response = await fetch("api/notes", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const data: NoteResponse = await response.json();
+
+      if (data.ok) {
+        dispatch({ type: "[NOTE] - load_notes", payload: data.notes || [] });
+      } else {
+        toast.error("Error loading notes", {
+          duration: 3000,
+          position: "top-center",
+          style: {
+            background: "#333",
+            color: "#fff",
+          },
+          icon: "❌",
+        });
+        return;
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Error loading notes", {
+        duration: 3000,
+        position: "top-center",
+        style: {
+          background: "#333",
+          color: "#fff",
+        },
+        icon: "❌",
+      });
+    }
+  };
+
   return (
     <NoteContext.Provider
       value={{
@@ -71,6 +240,8 @@ export const NotesProvider = ({ children }: NotesProviderProps) => {
         setCurrentNote,
         typeNote,
         createNote,
+        saveNote,
+        remove,
       }}
     >
       {children}

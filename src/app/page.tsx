@@ -24,7 +24,7 @@ export default function Home() {
           <header className="bg-dark_charcoal px-5 py-2">
             <h3 className="text-light_gray text-xl">Preview</h3>
           </header>
-          <div className="lg:min-h-[81vh] 2xl:max-h-[89vh] overflow-auto">
+          <div className="lg:max-h-[81vh] 2xl:max-h-[89vh] overflow-auto">
             <Preview />
           </div>
         </div>

@@ -7,7 +7,7 @@ import "animate.css";
 
 export const Navbar = () => {
   const { toggleSidebar, isSidebarOpen, openSaveModal } = useContext(UiContext);
-  const { notes } = useContext(NoteContext);
+  const { notes,currentNote,setCurrentNote, remove } = useContext(NoteContext);
 
   const onToggleSidebar = () => {
     toggleSidebar();
@@ -16,6 +16,15 @@ export const Navbar = () => {
   const handleOpenSaveModal = () => {
     openSaveModal();
   };
+
+  const handleSetCurrentNote = (id:string) => {
+    setCurrentNote(id);
+  }
+
+  const handleRemove = (id: string) => {
+    remove(id);
+  }
+
 
   return (
     <div className="flex items-center">
@@ -44,7 +53,7 @@ export const Navbar = () => {
               }`}
             >
               {notes.map((note) => (
-                <div key={note.id} className="flex items-center">
+                <div key={note.id} className="flex items-center" onClick={() => handleSetCurrentNote(note.id)}>
                   <div
                     className={`h-10 w-[1px] bg-graphite_gray ${
                       !isSidebarOpen ? "ml-4" : ""
@@ -71,7 +80,7 @@ export const Navbar = () => {
           </div>
         </div>
         <div className="flex items-center gap-5">
-          <button>
+          <button onClick={() => handleRemove(currentNote.id)}>
             <DeleteIcon />
           </button>
           <button
