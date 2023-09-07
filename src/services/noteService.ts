@@ -47,4 +47,23 @@ export class NoteService {
       throw new Error("Internal server error");
     }
   }
+
+  async delete(noteId: string) {
+    try {
+      await this.prisma.$connect();
+      const note = await this.prisma.note.delete({
+        where: {
+          id: noteId,
+        },
+      });
+      if (!note) {
+        return null;
+      }
+      await this.prisma.$disconnect();
+      return note;
+    } catch (error) {
+      console.log(error);
+      throw new Error("Internal server error");
+    }
+  }
 }

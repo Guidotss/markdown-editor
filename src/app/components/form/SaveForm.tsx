@@ -1,22 +1,22 @@
 "use client";
-import { useState, useContext } from "react";
+import { useState, useContext, useRef } from "react";
 import { NoteContext } from "@/context/notes";
 import { UiContext } from "@/context/ui";
 
+const intialMessage = '# type markdown here'; 
+
 export const SaveForm = () => {
-  const { saveNote, currentNote } = useContext(NoteContext);
+  const { currentNote } = useContext(NoteContext);
   const { isSaveModalOpen, closeSaveModal } = useContext(UiContext);
+  
 
   const [title, setTitle] = useState<string>(currentNote.title || "");
+  
 
   const handleSave = (e: React.FormEvent) => {
     e.preventDefault();
     closeSaveModal();
-    saveNote({
-      id: currentNote.id,
-      title: `${title}.md`,
-      content: currentNote.content,
-    });
+
   };
 
   const handleCloseModal = () => {
@@ -28,7 +28,7 @@ export const SaveForm = () => {
       {isSaveModalOpen && (
         <div className="h-full w-full bg-opacity-30 bg-dove_gray absolute flex items-center justify-center">
           <button
-            className="rounded-full text-white absolute z-10 lg:top-[22vh] lg:right-[32.3vw] bg-dark_charcoal px-2 hover:text-coral transition-colors duration-300 ease-in-out"
+            className="rounded-full text-white absolute z-10 2xl:top-[32.7vh] 2xl:right-[37.2vw] lg:top-[22vh] lg:right-[32.3vw] bg-dark_charcoal h-7 w-7 hover:text-coral transition-colors duration-300 ease-in-out"
             onClick={handleCloseModal}
           >
             X
@@ -48,7 +48,7 @@ export const SaveForm = () => {
               value={title}
               onChange={(e) => setTitle(e.target.value)}
             />
-            <button className="bg-coral 2xl::w-[400px] lg:w-[350px] py-2 rounded-lg mt-10 text-white text-xl font-semibold hover:bg-apricot transition-colors duration-300 ease-out">
+            <button className="bg-coral 2xl:w-[400px] lg:w-[350px] py-2 rounded-lg mt-10 text-white text-xl font-semibold hover:bg-apricot transition-colors duration-300 ease-out">
               Save
             </button>
           </form>

@@ -7,7 +7,7 @@ type NotesActionType =
   | { type: "[NOTE] - type_note"; payload: string }
   | { type: "[NOTE] - save_note"; payload: Note }
   | { type: "[NOTE] - load_notes"; payload: Note[] | [] }
-  | { type: "[NOTE] - delete_note"; payload: string }
+  | { type: "[NOTE] - delete_note"; payload: string }; 
 
 export const notesReducer = (
   state: NotesState,

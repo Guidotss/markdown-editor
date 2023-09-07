@@ -61,8 +61,8 @@ export const NotesProvider = ({ children }: NotesProviderProps) => {
     }
     const newNote: Note = {
       id: uuid(),
-      title: "untitled.md",
-      content: "# type markdown here",
+      title: "Untitled.md",
+      content: "# Type markdown here",
     };
     dispatch({ type: "[NOTE] - create_note", payload: newNote });
   };
@@ -95,15 +95,6 @@ export const NotesProvider = ({ children }: NotesProviderProps) => {
       const data: NoteResponse = await response.json();
 
       if (data.ok) {
-        toast.success("Note saved successfully", {
-          duration: 3000,
-          position: "top-center",
-          style: {
-            background: "#333",
-            color: "#fff",
-          },
-          icon: "✅",
-        });
         dispatch({ type: "[NOTE] - save_note", payload: note });
       } else {
         toast.error("Error saving note", {
@@ -133,6 +124,7 @@ export const NotesProvider = ({ children }: NotesProviderProps) => {
 
   const remove = async (id: string) => {
     try {
+      dispatch({ type: "[NOTE] - delete_note", payload: id });
       const response = await fetch(`api/notes/delete/${id}`, {
         method: "DELETE",
         headers: {
@@ -141,7 +133,7 @@ export const NotesProvider = ({ children }: NotesProviderProps) => {
       });
 
       const data: NoteResponse = await response.json();
-
+      
       if (data.ok) {
         toast.success("Note deleted successfully", {
           duration: 3000,
@@ -152,7 +144,6 @@ export const NotesProvider = ({ children }: NotesProviderProps) => {
           },
           icon: "✅",
         });
-        dispatch({ type: "[NOTE] - delete_note", payload: id });
       } else {
         toast.error("Error deleting note", {
           duration: 3000,
@@ -177,6 +168,52 @@ export const NotesProvider = ({ children }: NotesProviderProps) => {
       });
     }
   };
+
+  const update = async(note:Note) => { 
+    try{ 
+      const response = await fetch(`api/notes/update/${note.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json", 
+        },
+      });
+      const data:NoteResponse = await response.json(); 
+
+      if(data.ok){ 
+        toast.success("Note saved successfully", {
+          duration: 3000,
+          position: "top-center",
+          style: {
+            background: "#333",
+            color: "#fff",
+          },
+          icon: "✅",
+        });
+      }else{ 
+        toast.error("Error updating note", {
+          duration: 3000,
+          position: "top-center",
+          style: {
+            background: "#333",
+            color: "#fff",
+          },
+          icon: "❌",
+        });
+      }
+
+    }catch(error){ 
+      console.log(error); 
+      toast.error("Error updating note", {
+        duration: 3000,
+        position: "top-center",
+        style: {
+          background: "#333",
+          color: "#fff",
+        },
+        icon: "❌",
+      });
+    }
+  }
 
   const loadNotes = async () => {
     const token = Cookies.get("token");
