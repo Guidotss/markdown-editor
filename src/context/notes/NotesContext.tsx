@@ -8,9 +8,9 @@ interface NoteContextProps{
     currentNote: Note;
     setCurrentNote: (id: string) => void;
     typeNote: (content: string) => void; 
-    createNote: () => void; 
-    saveNote: (note: Note) => void;
+    createNote: (note:Note) => void; 
     remove: (id: string) => void; 
+    update: (note: Note) => void; 
 }
 
 

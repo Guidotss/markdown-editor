@@ -7,15 +7,15 @@ import { NoteContext } from '@/context/notes';
 
 export const Sidebar = () => {
   const { isSidebarOpen } = useContext(UiContext); 
-  const { createNote, saveNote,currentNote } = useContext(NoteContext); 
+  const { createNote,currentNote } = useContext(NoteContext); 
 
   const handleCreateNote = () => { 
-    createNote();
-    saveNote({ 
-      ...currentNote,
-      title: "Untitled.md",
-      content: "# Type markdown here",
-    });
+    const note = { 
+      id: "",
+      title: "Untitled",
+      content: "# Type your note here",
+    }
+    createNote(note);
   }
 
   return (

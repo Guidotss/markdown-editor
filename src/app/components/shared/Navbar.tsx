@@ -70,7 +70,7 @@ export const Navbar = () => {
                         Document Name
                       </h4>
                       <h2 className="text-white font-light text-sm">
-                        {note.title}
+                        {note.title}.md
                       </h2>
                     </div>
                   </div>

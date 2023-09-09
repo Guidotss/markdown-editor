@@ -1,22 +1,27 @@
 "use client";
-import { useState, useContext, useRef } from "react";
+import { useState, useContext, useRef, useEffect } from "react";
 import { NoteContext } from "@/context/notes";
 import { UiContext } from "@/context/ui";
 
-const intialMessage = '# type markdown here'; 
+
 
 export const SaveForm = () => {
-  const { currentNote } = useContext(NoteContext);
+  const { currentNote, update } = useContext(NoteContext);
   const { isSaveModalOpen, closeSaveModal } = useContext(UiContext);
-  
 
-  const [title, setTitle] = useState<string>(currentNote.title || "");
+  const [title, setTitle] = useState<string>(currentNote.title);
   
+  useEffect(() =>  {
+    setTitle(currentNote.title);
+  },[currentNote.title]); 
 
   const handleSave = (e: React.FormEvent) => {
     e.preventDefault();
+    update({
+      ...currentNote,
+      title,
+    });
     closeSaveModal();
-
   };
 
   const handleCloseModal = () => {

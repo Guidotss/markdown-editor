@@ -5,7 +5,7 @@ import { UserService } from ".";
 export class NoteService {
   private readonly prisma = new PrismaClient();
 
-  async getAllNotes(userId: string) {
+  async getAllNotes(userId: string): Promise<Note[]> {
     try {
       await this.prisma.$connect();
       const notes = await this.prisma.note.findMany({
@@ -23,7 +23,7 @@ export class NoteService {
     }
   }
 
-  async create(note: Note, userId: string) {
+  async create(note: Note, userId: string): Promise<Note> {
     try {
       await this.prisma.$connect();
 
@@ -48,7 +48,7 @@ export class NoteService {
     }
   }
 
-  async delete(noteId: string) {
+  async delete(noteId: string): Promise<Note | null> {
     try {
       await this.prisma.$connect();
       const note = await this.prisma.note.delete({
@@ -61,6 +61,29 @@ export class NoteService {
       }
       await this.prisma.$disconnect();
       return note;
+    } catch (error) {
+      console.log(error);
+      throw new Error("Internal server error");
+    }
+  }
+
+  async update(noteId: string, note: Note): Promise<Note | null> {
+    try {
+      await this.prisma.$connect();
+      const updatedNote = await this.prisma.note.update({
+        where: {
+          id: noteId,
+        },
+        data: {
+          title: note.title,
+          content: note.content,
+        },
+      });
+      if (!updatedNote) {
+        return null;
+      }
+      await this.prisma.$disconnect();
+      return updatedNote;
     } catch (error) {
       console.log(error);
       throw new Error("Internal server error");
